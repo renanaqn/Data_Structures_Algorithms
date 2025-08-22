@@ -13,29 +13,37 @@ type List interface {
 	Remove(index int) error
 }
 
-// Implementação de ArrayList
+// ==== Implementação de ArrayList ====
 
 type ArrayList struct {
 	v        []int
 	inserted int
 }
 
+// Init cria e retorna uma nova instância de ArrayList.
+// Complexidade: O(1) no pior caso, pois o tempo não depende da entrada
 func (l *ArrayList) Init(size int) {
 	l.v = make([]int, size)
 }
 
-func (list *ArrayList) Size() int { //Theta(1)
+// Size retorna o tamanho do Array
+// Complexidade: theta(1) no melhor e pior caso, pois o tempo não depende da entrada
+func (list *ArrayList) Size() int {
 	return list.inserted
 }
 
-func (list *ArrayList) Get(index int) (int, error) { //Theta(1)
+// Get retorna o elemento da posição index
+// Complexidade: theta(1) no pior caso, pois o tempo não depende da entrada
+func (list *ArrayList) Get(index int) (int, error) {
 	if index >= 0 && index < list.inserted {
 		return list.v[index], nil
 	} else {
-		return -1, errors.New(fmt.Sprintf("Index inválido: %d", index))
+		return -1, errors.New(fmt.Sprintf("Index invalido: %dA lista tem %d elementos.", index, list.inserted))
 	}
 }
 
+// doubleV duplica a capacidade do Array
+// Complexidade: theta(n) no melhor e pior caso, pois o tempo depende de uma multiplicação
 func (list *ArrayList) doubleV() { //Theta(n)
 	newV := make([]int, list.inserted*2)
 	for i := 0; i < len(list.v); i++ {
@@ -44,6 +52,8 @@ func (list *ArrayList) doubleV() { //Theta(n)
 	list.v = newV
 }
 
+// Add adiciona um novo elemento no final
+// Complexidade: O(n) no pior caso, pois o tempo depende de uma multiplicação da doubleV
 func (list *ArrayList) Add(val int) { //O(n), Ômega(1)
 	if list.inserted == len(list.v) {
 		list.doubleV()
@@ -52,34 +62,49 @@ func (list *ArrayList) Add(val int) { //O(n), Ômega(1)
 	list.inserted++
 }
 
-func (list *ArrayList) AddOnIndex(val int, index int) error { //O(n), Ômega(1)
-	if index >= 0 && index <= list.inserted {
-		if list.inserted == len(list.v) {
-			list.doubleV()
-		}
-		for i := list.inserted; i > index; i-- {
-			list.v[i] = list.v[i-1]
-		}
-		list.v[index] = val
-		list.inserted++
-		return nil
-	} else {
-		return errors.New(fmt.Sprintf("Index inválido: %d", index))
+// AddOnIndex adiciona um novo valor em um local específico
+// Complexidade: O(n) no pior caso, pois o tempo depende de uma multiplicação da doubleV
+func (list *ArrayList) AddOnIndex(e int, index int) error {
+	if index < 0 || index > list.inserted {
+		return errors.New(fmt.Sprintf("Índice inválido: %d. O índice deve estar entre 0 e %d.", index, list.inserted))
 	}
+
+	if list.inserted == len(list.v) {
+		list.doubleV()
+	}
+	//Desloca os elementos para a direita
+	for i := list.inserted; i > index; i-- {
+		list.v[i] = list.v[i-1]
+	}
+
+	// Insere o novo elemento na posição correta
+	list.v[index] = e
+
+	// Incrementa o contador de elementos inseridos
+	list.inserted++
+
+	return nil
 }
 
-func (list *ArrayList) Remove(index int) error { //Ômega(1), O(n)
-	if index >= 0 && index < list.inserted {
-		for i := index; i < list.inserted; i++ {
-			list.v[i] = list.v[i+1]
-		}
-		list.inserted--
-		return nil
-	} else {
-		return errors.New(fmt.Sprintf("Index inválido: %d", index))
+// Remove remove o elemento de um índice específico.
+// Complexidade: O(n) no pior caso, pois pode precisar deslocar todos os elementos.
+func (list *ArrayList) Remove(index int) error {
+	if index < 0 || index >= list.inserted {
+		return errors.New(fmt.Sprintf("Índice inválido: %d. A lista tem %d elementos.", index, list.inserted))
 	}
+	// Desloca os elementos
+	for i := index; i < list.inserted-1; i++ {
+		list.v[i] = list.v[i+1]
+	}
+	list.inserted--
+
+	list.v[list.inserted] = 0 // Define o valor zero para o tipo int
+
+	return nil
 }
 
+// Print imprime todos os elementos do ArrayList
+// Complexidade: O(n) no pior caso, pois o tempo depende do número de elementos
 func (list *ArrayList) Print() {
 	for i := 0; i < list.inserted; i++ {
 		fmt.Print(list.v[i], " ")
@@ -87,7 +112,7 @@ func (list *ArrayList) Print() {
 	fmt.Println()
 }
 
-// Implementação de LinkedList
+// ==== Implementação de LinkedList ====
 
 type Node struct {
 	val  int
@@ -177,7 +202,7 @@ func (list *LinkedList) Print() {
 	fmt.Println()
 }
 
-// Implementação de DoublyLinkedList
+// ==== Implementação de DoublyLinkedList ====
 
 type DoublyNode struct {
 	val  int
@@ -313,15 +338,15 @@ func main() {
 	val, _ = l.Get(49)
 	fmt.Println("Valor na posicao 49: ", val)
 
-	l.AddOnIndex(-1, 0)
+	l.AddOnIndex(-1, 30)
+
+	val, _ = l.Get(30)
+	fmt.Println("Valor na posicao 30: ", val)
+
+	l.Remove(30)
 
 	val, _ = l.Get(0)
-	fmt.Println("Valor na posicao 0: ", val)
-
-	l.Remove(0)
-
-	val, _ = l.Get(0)
-	fmt.Println("Valor na posicao 0: ", val)
+	fmt.Println("Valor na posicao 30: ", val)
 
 	l.Print()
 
