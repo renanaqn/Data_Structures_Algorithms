@@ -6,94 +6,130 @@ import (
 )
 
 func main() {
-	fmt.Println("Trabalhando com Pilha")
+	fmt.Println("Trabalhando com Pilha em cima de ArrayList")
 
 	// Para usar a pilha, é preciso lembrar de prefixar com o nome do pacote
 	pilha := datastructures.NewStackArrayList()
 
 	fmt.Println("Pilha está vazia?", pilha.IsEmpty())
 
-	pilha.Push(10)
-	pilha.Push(20)
+	pilha.Push(5)
+	pilha.Push(9)
+	pilha.Push(25)
 
 	topo, _ := pilha.Peek()
-	fmt.Println("Topo:", topo) // Deve ser 20
+	fmt.Println("Topo:", topo)
 
+	pilha.Pop()
 	valor, _ := pilha.Pop()
-	fmt.Println("Pop:", valor) // Deve ser 20
+	fmt.Println("Pop:", valor)
 
-	fmt.Println("Tamanho:", pilha.Size()) // Deve ser 1
+	fmt.Println("Pilha está vazia?", pilha.IsEmpty())
 
-	fmt.Println("Trabalhando com ArrayList")
+	fmt.Println("Tamanho da Pilha:", pilha.Size())
 
-	l := &datastructures.ArrayList{}
-	l.Init(10)
-	for i := 1; i <= 50; i++ {
-		l.Add(i)
-	}
-	val, _ := l.Get(0)
-	fmt.Println("Valor na posicao 0: ", val)
+	topo, _ = pilha.Peek()
+	fmt.Println("Topo:", topo)
 
-	val, _ = l.Get(49)
-	fmt.Println("Valor na posicao 49: ", val)
-
-	l.AddOnIndex(-1, 30)
-
-	val, _ = l.Get(30)
-	fmt.Println("Valor na posicao 30: ", val)
-
-	l.Remove(30)
-
-	val, _ = l.Get(0)
-	fmt.Println("Valor na posicao 30: ", val)
-
-	l.Print()
+	pilha.Pop()
 
 	fmt.Println("")
-	fmt.Println("Trabalhando com LinkedList")
+	fmt.Println("Trabalhando com Pilha em cima de LinkedList")
 
-	l2 := &datastructures.LinkedList{}
-	for i := 1; i <= 50; i++ {
-		l2.Add(i)
-	}
-	val, _ = l2.Get(0)
-	fmt.Println("Valor na posicao 0: ", val)
+	pilha2 := datastructures.NewStackLinkedList()
 
-	val, _ = l2.Get(30)
-	fmt.Println("Valor na posicao 49: ", val)
+	fmt.Println("Pilha 2 está vazia?", pilha2.IsEmpty())
 
-	l2.AddOnIndex(-1, 0)
+	pilha2.Push(7)
+	pilha2.Push(15)
+	pilha2.Push(23)
 
-	val, _ = l2.Get(0)
-	fmt.Println("Valor na posicao 0: ", val)
+	topo2, _ := pilha2.Peek()
+	fmt.Println("Topo:", topo2) // Deve ser 23
 
-	l2.Remove(0)
+	valor2, _ := pilha2.Pop()
+	fmt.Println("Pop:", valor2) // Deve ser 23
 
-	val, _ = l2.Get(0)
-	fmt.Println("Valor na posicao 0: ", val)
+	fmt.Println("Tamanho:", pilha2.Size()) // Deve ser 2
 
-	l2.Print()
+	fmt.Println("Pilha 2 está vazia agora?", pilha2.IsEmpty())
 
 	fmt.Println("")
-	fmt.Println("Trabalhando com DoublyLinkedList")
+	fmt.Println("Trabalhando com Pilha em cima de ArrayList de forma manual")
 
-	l3 := &datastructures.DoublyLinkedList{}
-	for i := 1; i <= 50; i++ {
-		l3.Add(i)
-	}
-	val, _ = l3.Get(0)
-	fmt.Println("Valor na posicao 0: ", val)
+	// ===========================================
+	/*
+		fmt.Println("==== Trabalhando com ArrayList ==== ")
 
-	val, _ = l3.Get(30)
-	fmt.Println("Valor na posicao 49: ", val)
+		l := &datastructures.ArrayList{}
+		l.Init(10)
+		for i := 1; i <= 50; i++ {
+			l.Add(i)
+		}
+		val, _ := l.Get(0)
+		fmt.Println("Valor na posicao 0: ", val)
 
-	l3.AddOnIndex(-1, 0)
-	val, _ = l3.Get(0)
-	fmt.Println("Valor na posicao 0: ", val)
+		val, _ = l.Get(49)
+		fmt.Println("Valor na posicao 49: ", val)
 
-	l3.Remove(0)
-	val, _ = l3.Get(0)
-	fmt.Println("Valor na posicao 0: ", val)
+		l.AddOnIndex(-1, 30)
 
-	l3.Print()
+		val, _ = l.Get(30)
+		fmt.Println("Valor na posicao 30: ", val)
+
+		l.Remove(30)
+
+		val, _ = l.Get(0)
+		fmt.Println("Valor na posicao 30: ", val)
+
+		l.Print()
+
+		fmt.Println("")
+		fmt.Println("==== Trabalhando com LinkedList ==== ")
+
+		l2 := &datastructures.LinkedList{}
+		for i := 1; i <= 50; i++ {
+			l2.Add(i)
+		}
+		val, _ = l2.Get(0)
+		fmt.Println("Valor na posicao 0: ", val)
+
+		val, _ = l2.Get(30)
+		fmt.Println("Valor na posicao 49: ", val)
+
+		l2.AddOnIndex(-1, 0)
+
+		val, _ = l2.Get(0)
+		fmt.Println("Valor na posicao 0: ", val)
+
+		l2.Remove(0)
+
+		val, _ = l2.Get(0)
+		fmt.Println("Valor na posicao 0: ", val)
+
+		l2.Print()
+
+		fmt.Println("")
+		fmt.Println("==== Trabalhando com DoublyLinkedList ==== ")
+
+		l3 := &datastructures.DoublyLinkedList{}
+		for i := 1; i <= 50; i++ {
+			l3.Add(i)
+		}
+		val, _ = l3.Get(0)
+		fmt.Println("Valor na posicao 0: ", val)
+
+		val, _ = l3.Get(30)
+		fmt.Println("Valor na posicao 49: ", val)
+
+		l3.AddOnIndex(-1, 0)
+		val, _ = l3.Get(0)
+		fmt.Println("Valor na posicao 0: ", val)
+
+		l3.Remove(0)
+		val, _ = l3.Get(0)
+		fmt.Println("Valor na posicao 0: ", val)
+
+		l3.Print()
+	*/
 }
