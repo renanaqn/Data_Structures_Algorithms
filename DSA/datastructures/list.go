@@ -1,4 +1,4 @@
-package main
+package datastructures
 
 import (
 	"errors"
@@ -324,6 +324,7 @@ func (list *DoublyLinkedList) Print() {
 	fmt.Println()
 }
 
+/*
 func main() {
 	fmt.Println("Trabalhando com ArrayList")
 
@@ -398,5 +399,5 @@ func main() {
 
 	l3.Print()
 }
-
-// TODO: Mostrar também o endereço de memória de cada elemento
+*/
+// TODO: Mostrar também o endereço de memória de cada elemento para fazer uns testes
