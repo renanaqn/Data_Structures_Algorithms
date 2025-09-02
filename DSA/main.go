@@ -6,56 +6,79 @@ import (
 )
 
 func main() {
-	fmt.Println("Trabalhando com Pilha em cima de ArrayList")
 
-	// Para usar a pilha, é preciso lembrar de prefixar com o nome do pacote
-	pilha := datastructures.NewStackArrayList()
+	fmt.Println("Trabalhando com pilha em cima de Array com Índice")
 
-	fmt.Println("Pilha está vazia?", pilha.IsEmpty())
+	pilhaIndice := datastructures.NewStackWithIndex(10)
 
-	pilha.Push(5)
-	pilha.Push(9)
-	pilha.Push(25)
+	fmt.Println("pilha com Índice está vazia?", pilhaIndice.IsEmpty())
 
-	topo, _ := pilha.Peek()
-	fmt.Println("Topo:", topo)
+	pilhaIndice.Push(5)
+	pilhaIndice.Push(9)
+	pilhaIndice.Push(25)
 
-	pilha.Pop()
-	valor, _ := pilha.Pop()
-	fmt.Println("Pop:", valor)
+	topoIndice, _ := pilhaIndice.Peek()
+	fmt.Println("Topo:", topoIndice)
 
-	fmt.Println("Pilha está vazia?", pilha.IsEmpty())
+	pilhaIndice.Pop()
+	valorIndice, _ := pilhaIndice.Pop()
+	fmt.Println("Pop:", valorIndice)
 
-	fmt.Println("Tamanho da Pilha:", pilha.Size())
+	fmt.Println("pilhaIndice está vazia?", pilhaIndice.IsEmpty())
 
-	topo, _ = pilha.Peek()
-	fmt.Println("Topo:", topo)
+	fmt.Println("Tamanho da pilha com Índice:", pilhaIndice.Size())
 
-	pilha.Pop()
+	topoIndice, _ = pilhaIndice.Peek()
+	fmt.Println("Topo:", topoIndice)
 
 	fmt.Println("")
-	fmt.Println("Trabalhando com Pilha em cima de LinkedList")
+	fmt.Println("Trabalhando com pilhaArray em cima de ArrayList")
 
-	pilha2 := datastructures.NewStackLinkedList()
+	pilhaArray := datastructures.NewStackArrayList()
 
-	fmt.Println("Pilha 2 está vazia?", pilha2.IsEmpty())
+	fmt.Println("pilhaArray está vazia?", pilhaArray.IsEmpty())
 
-	pilha2.Push(7)
-	pilha2.Push(15)
-	pilha2.Push(23)
+	pilhaArray.Push(5)
+	pilhaArray.Push(9)
+	pilhaArray.Push(25)
 
-	topo2, _ := pilha2.Peek()
-	fmt.Println("Topo:", topo2) // Deve ser 23
+	topoArray, _ := pilhaArray.Peek()
+	fmt.Println("Topo:", topoArray)
 
-	valor2, _ := pilha2.Pop()
-	fmt.Println("Pop:", valor2) // Deve ser 23
+	pilhaArray.Pop()
+	valorArray, _ := pilhaArray.Pop()
+	fmt.Println("Pop:", valorArray)
 
-	fmt.Println("Tamanho:", pilha2.Size()) // Deve ser 2
+	fmt.Println("pilhaArray está vazia?", pilhaArray.IsEmpty())
 
-	fmt.Println("Pilha 2 está vazia agora?", pilha2.IsEmpty())
+	fmt.Println("Tamanho:", pilhaArray.Size())
+
+	topoArray, _ = pilhaArray.Peek()
+	fmt.Println("topoArray:", topoArray)
+
+	pilhaArray.Pop()
 
 	fmt.Println("")
-	fmt.Println("Trabalhando com Pilha em cima de ArrayList de forma manual")
+	fmt.Println("Trabalhando com pilhaArray em cima de LinkedList")
+
+	pilhaLinked := datastructures.NewStackLinkedList()
+
+	fmt.Println("pilhaLinked está vazia?", pilhaLinked.IsEmpty())
+
+	pilhaLinked.Push(5)
+	pilhaLinked.Push(9)
+	pilhaLinked.Push(25)
+
+	topoLinked, _ := pilhaLinked.Peek()
+	fmt.Println("Topo:", topoLinked)
+
+	pilhaLinked.Pop()
+	valorLinked, _ := pilhaLinked.Pop()
+	fmt.Println("Pop:", valorLinked)
+
+	fmt.Println("pilhaLinked está vazia agora?", pilhaLinked.IsEmpty())
+
+	fmt.Println("Tamanho:", pilhaLinked.Size())
 
 	// ===========================================
 	/*

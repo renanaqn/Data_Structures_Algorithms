@@ -12,6 +12,68 @@ type Stack interface {
 	IsEmpty() bool
 }
 
+// ==== Implementação de Pilha usando ideia de Índice ====
+
+// StackWithIndex é uma implementação que gerencia o topo com um índice explícito.
+type StackWithIndex struct {
+	items []int // O slice que armazena os dados
+	top   int   // O índice que aponta para a PRÓXIMA posição livre
+}
+
+// NewStackWithIndex cria uma nova pilha com uma capacidade inicial.
+func NewStackWithIndex(initialCapacity int) *StackWithIndex {
+	return &StackWithIndex{
+		items: make([]int, initialCapacity), // Aloca o slice com a capacidade definida
+		top:   0,                            // O topo começa no índice 0
+	}
+}
+
+// Push implementa a lógica de "add" e "update top".
+func (s *StackWithIndex) Push(e int) {
+	// Se o topo atingiu a capacidade do slice, não podemos mais inserir.
+	// (Uma implementação mais robusta poderia redimensionar o slice aqui)
+	if s.top == len(s.items) {
+		// Por enquanto, vamos ignorar a inserção se estiver cheio.
+		// Em um caso real, retornaríamos um erro.
+		return
+	}
+
+	// Passo 1: "add"
+	s.items[s.top] = e
+	// Passo 2: "update top"
+	s.top++
+}
+
+// Pop faz o processo inverso.
+func (s *StackWithIndex) Pop() (int, error) {
+	if s.IsEmpty() {
+		return 0, errors.New("a pilha está vazia")
+	}
+	// Passo 1: Decrementa o topo para apontar para o último elemento válido.
+	s.top--
+	// Passo 2: Retorna o elemento que estava no topo.
+	item := s.items[s.top]
+	return item, nil
+}
+
+// Peek "espia" o elemento na posição `top - 1`.
+func (s *StackWithIndex) Peek() (int, error) {
+	if s.IsEmpty() {
+		return 0, errors.New("a pilha está vazia")
+	}
+	return s.items[s.top-1], nil
+}
+
+// Size é simplesmente o valor do nosso índice `top`.
+func (s *StackWithIndex) Size() int {
+	return s.top
+}
+
+// IsEmpty verifica se o `top` é 0.
+func (s *StackWithIndex) IsEmpty() bool {
+	return s.top == 0
+}
+
 // ==== Implementação de Pilha usando ArrayList ====
 
 type StackArrayList struct {
