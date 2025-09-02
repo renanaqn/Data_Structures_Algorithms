@@ -6,79 +6,161 @@ import (
 )
 
 func main() {
+	// ==== Testando a Fila Circular ====
+	fmt.Println("\n--- Testando Fila Circular com Array ---")
 
-	fmt.Println("Trabalhando com pilha em cima de Array com Índice")
+	filaCircular := datastructures.NewCircularQueue(5)
 
-	pilhaIndice := datastructures.NewStackWithIndex(10)
+	fmt.Println("Fila Circular está vazia?", filaCircular.IsEmpty())
 
-	fmt.Println("pilha com Índice está vazia?", pilhaIndice.IsEmpty())
+	filaCircular.Enqueue(5)
+	filaCircular.Enqueue(9)
+	filaCircular.Enqueue(25)
 
-	pilhaIndice.Push(5)
-	pilhaIndice.Push(9)
-	pilhaIndice.Push(25)
+	head, _ := filaCircular.Peek()
+	fmt.Println("Head:", head)
 
-	topoIndice, _ := pilhaIndice.Peek()
-	fmt.Println("Topo:", topoIndice)
+	filaCircular.Dequeue()
+	valor, _ := filaCircular.Dequeue()
+	fmt.Println("Dequeue:", valor)
 
-	pilhaIndice.Pop()
-	valorIndice, _ := pilhaIndice.Pop()
-	fmt.Println("Pop:", valorIndice)
+	fmt.Println("Fila Circular está vazia?", filaCircular.IsEmpty())
+	fmt.Println("Tamanho da Fila Circular:", filaCircular.Size())
 
-	fmt.Println("pilhaIndice está vazia?", pilhaIndice.IsEmpty())
+	head, _ = filaCircular.Peek()
+	fmt.Println("Head:", head)
 
-	fmt.Println("Tamanho da pilha com Índice:", pilhaIndice.Size())
+	filaCircular.Dequeue()
+	fmt.Println("Fila esvaziada. Está vazia?", filaCircular.IsEmpty())
 
-	topoIndice, _ = pilhaIndice.Peek()
-	fmt.Println("Topo:", topoIndice)
+	// ==== Testando a Fila com ArrayList ====
+	fmt.Println("\n--- Testando Fila com ArrayList ---")
 
-	fmt.Println("")
-	fmt.Println("Trabalhando com pilhaArray em cima de ArrayList")
+	filaArray := datastructures.NewQueueArrayList()
 
-	pilhaArray := datastructures.NewStackArrayList()
+	fmt.Println("Fila Array está vazia?", filaArray.IsEmpty())
 
-	fmt.Println("pilhaArray está vazia?", pilhaArray.IsEmpty())
+	filaArray.Enqueue(5)
+	filaArray.Enqueue(9)
+	filaArray.Enqueue(25)
 
-	pilhaArray.Push(5)
-	pilhaArray.Push(9)
-	pilhaArray.Push(25)
+	headArray, _ := filaArray.Peek()
+	fmt.Println("Head:", headArray)
 
-	topoArray, _ := pilhaArray.Peek()
-	fmt.Println("Topo:", topoArray)
+	filaArray.Dequeue() // operação LENTA
+	valorArray, _ := filaArray.Dequeue()
+	fmt.Println("Dequeue:", valorArray)
 
-	pilhaArray.Pop()
-	valorArray, _ := pilhaArray.Pop()
-	fmt.Println("Pop:", valorArray)
+	fmt.Println("Fila Array está vazia?", filaArray.IsEmpty())
+	fmt.Println("Tamanho da Fila Array:", filaArray.Size())
 
-	fmt.Println("pilhaArray está vazia?", pilhaArray.IsEmpty())
+	headArray, _ = filaArray.Peek()
+	fmt.Println("Head:", headArray)
 
-	fmt.Println("Tamanho:", pilhaArray.Size())
+	filaArray.Dequeue()
+	fmt.Println("Fila esvaziada. Está vazia?", filaArray.IsEmpty())
 
-	topoArray, _ = pilhaArray.Peek()
-	fmt.Println("topoArray:", topoArray)
+	// ==== Testando a Fila com DoublyLinkedList ====
+	fmt.Println("\n--- Testando Fila com DoublyLinkedList ---")
 
-	pilhaArray.Pop()
+	filaLinked := datastructures.NewQueueLinkedList()
 
-	fmt.Println("")
-	fmt.Println("Trabalhando com pilhaArray em cima de LinkedList")
+	fmt.Println("Fila Linked está vazia?", filaLinked.IsEmpty())
 
-	pilhaLinked := datastructures.NewStackLinkedList()
+	filaLinked.Enqueue(5)
+	filaLinked.Enqueue(9)
+	filaLinked.Enqueue(25)
 
-	fmt.Println("pilhaLinked está vazia?", pilhaLinked.IsEmpty())
+	headLinked, _ := filaLinked.Peek()
+	fmt.Println("Head:", headLinked)
 
-	pilhaLinked.Push(5)
-	pilhaLinked.Push(9)
-	pilhaLinked.Push(25)
+	filaLinked.Dequeue()
+	valorLinked, _ := filaLinked.Dequeue()
+	fmt.Println("Dequeue:", valorLinked)
 
-	topoLinked, _ := pilhaLinked.Peek()
-	fmt.Println("Topo:", topoLinked)
+	fmt.Println("Fila Linked está vazia?", filaLinked.IsEmpty())
+	fmt.Println("Tamanho da Fila Linked:", filaLinked.Size())
 
-	pilhaLinked.Pop()
-	valorLinked, _ := pilhaLinked.Pop()
-	fmt.Println("Pop:", valorLinked)
+	headLinked, _ = filaLinked.Peek()
+	fmt.Println("Head:", headLinked)
 
-	fmt.Println("pilhaLinked está vazia agora?", pilhaLinked.IsEmpty())
+	filaLinked.Dequeue()
+	fmt.Println("Fila esvaziada. Está vazia?", filaLinked.IsEmpty())
 
-	fmt.Println("Tamanho:", pilhaLinked.Size())
+	/*
+		fmt.Println("Trabalhando com pilha em cima de Array com Índice")
+
+		pilhaIndice := datastructures.NewStackWithIndex(10)
+
+		fmt.Println("pilha com Índice está vazia?", pilhaIndice.IsEmpty())
+
+		pilhaIndice.Push(5)
+		pilhaIndice.Push(9)
+		pilhaIndice.Push(25)
+
+		topoIndice, _ := pilhaIndice.Peek()
+		fmt.Println("Topo:", topoIndice)
+
+		pilhaIndice.Pop()
+		valorIndice, _ := pilhaIndice.Pop()
+		fmt.Println("Pop:", valorIndice)
+
+		fmt.Println("pilhaIndice está vazia?", pilhaIndice.IsEmpty())
+
+		fmt.Println("Tamanho da pilha com Índice:", pilhaIndice.Size())
+
+		topoIndice, _ = pilhaIndice.Peek()
+		fmt.Println("Topo:", topoIndice)
+
+		fmt.Println("")
+		fmt.Println("Trabalhando com pilhaArray em cima de ArrayList")
+
+		pilhaArray := datastructures.NewStackArrayList()
+
+		fmt.Println("pilhaArray está vazia?", pilhaArray.IsEmpty())
+
+		pilhaArray.Push(5)
+		pilhaArray.Push(9)
+		pilhaArray.Push(25)
+
+		topoArray, _ := pilhaArray.Peek()
+		fmt.Println("Topo:", topoArray)
+
+		pilhaArray.Pop()
+		valorArray, _ := pilhaArray.Pop()
+		fmt.Println("Pop:", valorArray)
+
+		fmt.Println("pilhaArray está vazia?", pilhaArray.IsEmpty())
+
+		fmt.Println("Tamanho:", pilhaArray.Size())
+
+		topoArray, _ = pilhaArray.Peek()
+		fmt.Println("topoArray:", topoArray)
+
+		pilhaArray.Pop()
+
+		fmt.Println("")
+		fmt.Println("Trabalhando com pilhaArray em cima de LinkedList")
+
+		pilhaLinked := datastructures.NewStackLinkedList()
+
+		fmt.Println("pilhaLinked está vazia?", pilhaLinked.IsEmpty())
+
+		pilhaLinked.Push(5)
+		pilhaLinked.Push(9)
+		pilhaLinked.Push(25)
+
+		topoLinked, _ := pilhaLinked.Peek()
+		fmt.Println("Topo:", topoLinked)
+
+		pilhaLinked.Pop()
+		valorLinked, _ := pilhaLinked.Pop()
+		fmt.Println("Pop:", valorLinked)
+
+		fmt.Println("pilhaLinked está vazia agora?", pilhaLinked.IsEmpty())
+
+		fmt.Println("Tamanho:", pilhaLinked.Size())
+	*/
 
 	// ===========================================
 	/*

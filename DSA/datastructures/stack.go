@@ -1,6 +1,6 @@
 package datastructures
 
-import "errors" // Você precisará importar isso para usar errors.New
+import "errors"
 
 // ==== Interface da Pilha ====
 
