@@ -5,8 +5,157 @@ import (
 	"fmt"
 )
 
-func main() {
-	// ==== Testando a Fila Circular ====
+func testaList() {
+	fmt.Println("==== Trabalhando com ArrayList ==== ")
+
+	l := &datastructures.ArrayList{}
+	l.Init(10)
+	for i := 1; i <= 50; i++ {
+		l.Add(i)
+	}
+	val, _ := l.Get(0)
+	fmt.Println("Valor na posicao 0: ", val)
+
+	val, _ = l.Get(49)
+	fmt.Println("Valor na posicao 49: ", val)
+
+	l.AddOnIndex(-1, 30)
+
+	val, _ = l.Get(30)
+	fmt.Println("Valor na posicao 30: ", val)
+
+	l.Remove(30)
+
+	val, _ = l.Get(0)
+	fmt.Println("Valor na posicao 30: ", val)
+
+	l.Print()
+
+	fmt.Println("")
+	fmt.Println("==== Trabalhando com LinkedList ==== ")
+
+	l2 := &datastructures.LinkedList{}
+	for i := 1; i <= 50; i++ {
+		l2.Add(i)
+	}
+	val, _ = l2.Get(0)
+	fmt.Println("Valor na posicao 0: ", val)
+
+	val, _ = l2.Get(30)
+	fmt.Println("Valor na posicao 49: ", val)
+
+	l2.AddOnIndex(-1, 0)
+
+	val, _ = l2.Get(0)
+	fmt.Println("Valor na posicao 0: ", val)
+
+	l2.Remove(0)
+
+	val, _ = l2.Get(0)
+	fmt.Println("Valor na posicao 0: ", val)
+
+	l2.Print()
+
+	fmt.Println("")
+	fmt.Println("==== Trabalhando com DoublyLinkedList ==== ")
+
+	l3 := &datastructures.DoublyLinkedList{}
+	for i := 1; i <= 50; i++ {
+		l3.Add(i)
+	}
+	val, _ = l3.Get(0)
+	fmt.Println("Valor na posicao 0: ", val)
+
+	val, _ = l3.Get(30)
+	fmt.Println("Valor na posicao 49: ", val)
+
+	l3.AddOnIndex(-1, 0)
+	val, _ = l3.Get(0)
+	fmt.Println("Valor na posicao 0: ", val)
+
+	l3.Remove(0)
+	val, _ = l3.Get(0)
+	fmt.Println("Valor na posicao 0: ", val)
+
+	l3.Print()
+}
+
+func testaStack() {
+	fmt.Println("Trabalhando com pilha em cima de Array com Índice")
+
+	pilhaIndice := datastructures.NewStackWithIndex(10)
+
+	fmt.Println("pilha com Índice está vazia?", pilhaIndice.IsEmpty())
+
+	pilhaIndice.Push(5)
+	pilhaIndice.Push(9)
+	pilhaIndice.Push(25)
+
+	topoIndice, _ := pilhaIndice.Peek()
+	fmt.Println("Topo:", topoIndice)
+
+	pilhaIndice.Pop()
+	valorIndice, _ := pilhaIndice.Pop()
+	fmt.Println("Pop:", valorIndice)
+
+	fmt.Println("pilhaIndice está vazia?", pilhaIndice.IsEmpty())
+
+	fmt.Println("Tamanho da pilha com Índice:", pilhaIndice.Size())
+
+	topoIndice, _ = pilhaIndice.Peek()
+	fmt.Println("Topo:", topoIndice)
+
+	fmt.Println("")
+	fmt.Println("Trabalhando com pilhaArray em cima de ArrayList")
+
+	pilhaArray := datastructures.NewStackArrayList()
+
+	fmt.Println("pilhaArray está vazia?", pilhaArray.IsEmpty())
+
+	pilhaArray.Push(5)
+	pilhaArray.Push(9)
+	pilhaArray.Push(25)
+
+	topoArray, _ := pilhaArray.Peek()
+	fmt.Println("Topo:", topoArray)
+
+	pilhaArray.Pop()
+	valorArray, _ := pilhaArray.Pop()
+	fmt.Println("Pop:", valorArray)
+
+	fmt.Println("pilhaArray está vazia?", pilhaArray.IsEmpty())
+
+	fmt.Println("Tamanho:", pilhaArray.Size())
+
+	topoArray, _ = pilhaArray.Peek()
+	fmt.Println("topoArray:", topoArray)
+
+	pilhaArray.Pop()
+
+	fmt.Println("")
+	fmt.Println("Trabalhando com pilhaArray em cima de LinkedList")
+
+	pilhaLinked := datastructures.NewStackLinkedList()
+
+	fmt.Println("pilhaLinked está vazia?", pilhaLinked.IsEmpty())
+
+	pilhaLinked.Push(5)
+	pilhaLinked.Push(9)
+	pilhaLinked.Push(25)
+
+	topoLinked, _ := pilhaLinked.Peek()
+	fmt.Println("Topo:", topoLinked)
+
+	pilhaLinked.Pop()
+	valorLinked, _ := pilhaLinked.Pop()
+	fmt.Println("Pop:", valorLinked)
+
+	fmt.Println("pilhaLinked está vazia agora?", pilhaLinked.IsEmpty())
+
+	fmt.Println("Tamanho:", pilhaLinked.Size())
+}
+
+func testaQeueue() {
 	fmt.Println("\n--- Testando Fila Circular com Array ---")
 
 	filaCircular := datastructures.NewCircularQueue(5)
@@ -87,154 +236,36 @@ func main() {
 	filaLinked.Dequeue()
 	fmt.Println("Fila esvaziada. Está vazia?", filaLinked.IsEmpty())
 
-	/*
-		fmt.Println("Trabalhando com pilha em cima de Array com Índice")
+}
 
-		pilhaIndice := datastructures.NewStackWithIndex(10)
+func testaSearch() {
+	fmt.Println("\n--- Testando Algoritmos de Busca ---")
 
-		fmt.Println("pilha com Índice está vazia?", pilhaIndice.IsEmpty())
+	unsortedData := []int{3, 41, 2, 9, 33, 15, 28, 49}
+	sortedData := []int{2, 9, 15, 28, 33, 41, 49}
+	target := 33
 
-		pilhaIndice.Push(5)
-		pilhaIndice.Push(9)
-		pilhaIndice.Push(25)
+	// --- Teste da Busca Linear ---
+	fmt.Println("\n[Busca Linear]")
+	index1 := datastructures.LinearSearch(unsortedData, target)
+	fmt.Printf("Buscando %d em dados não ordenados. Encontrado no índice: %d\n", target, index1)
 
-		topoIndice, _ := pilhaIndice.Peek()
-		fmt.Println("Topo:", topoIndice)
+	index2 := datastructures.LinearSearch(sortedData, target)
+	fmt.Printf("Buscando %d em dados ordenados. Encontrado no índice: %d\n", target, index2)
 
-		pilhaIndice.Pop()
-		valorIndice, _ := pilhaIndice.Pop()
-		fmt.Println("Pop:", valorIndice)
+	// --- Teste da Busca Binária ---
+	fmt.Println("\n[Busca Binária]")
+	index3 := datastructures.BinarySearch(sortedData, target)
+	fmt.Printf("Buscando %d em dados ORDENADOS. Encontrado no índice: %d\n", target, index3)
 
-		fmt.Println("pilhaIndice está vazia?", pilhaIndice.IsEmpty())
+	// Exemplo de por que a Busca Binária PRECISA de dados ordenados
+	index4 := datastructures.BinarySearch(unsortedData, target)
+	fmt.Printf("!! Tentando buscar %d em dados NÃO ORDENADOS. Resultado (não confiável): %d\n", target, index4)
+}
 
-		fmt.Println("Tamanho da pilha com Índice:", pilhaIndice.Size())
-
-		topoIndice, _ = pilhaIndice.Peek()
-		fmt.Println("Topo:", topoIndice)
-
-		fmt.Println("")
-		fmt.Println("Trabalhando com pilhaArray em cima de ArrayList")
-
-		pilhaArray := datastructures.NewStackArrayList()
-
-		fmt.Println("pilhaArray está vazia?", pilhaArray.IsEmpty())
-
-		pilhaArray.Push(5)
-		pilhaArray.Push(9)
-		pilhaArray.Push(25)
-
-		topoArray, _ := pilhaArray.Peek()
-		fmt.Println("Topo:", topoArray)
-
-		pilhaArray.Pop()
-		valorArray, _ := pilhaArray.Pop()
-		fmt.Println("Pop:", valorArray)
-
-		fmt.Println("pilhaArray está vazia?", pilhaArray.IsEmpty())
-
-		fmt.Println("Tamanho:", pilhaArray.Size())
-
-		topoArray, _ = pilhaArray.Peek()
-		fmt.Println("topoArray:", topoArray)
-
-		pilhaArray.Pop()
-
-		fmt.Println("")
-		fmt.Println("Trabalhando com pilhaArray em cima de LinkedList")
-
-		pilhaLinked := datastructures.NewStackLinkedList()
-
-		fmt.Println("pilhaLinked está vazia?", pilhaLinked.IsEmpty())
-
-		pilhaLinked.Push(5)
-		pilhaLinked.Push(9)
-		pilhaLinked.Push(25)
-
-		topoLinked, _ := pilhaLinked.Peek()
-		fmt.Println("Topo:", topoLinked)
-
-		pilhaLinked.Pop()
-		valorLinked, _ := pilhaLinked.Pop()
-		fmt.Println("Pop:", valorLinked)
-
-		fmt.Println("pilhaLinked está vazia agora?", pilhaLinked.IsEmpty())
-
-		fmt.Println("Tamanho:", pilhaLinked.Size())
-	*/
-
-	// ===========================================
-	/*
-		fmt.Println("==== Trabalhando com ArrayList ==== ")
-
-		l := &datastructures.ArrayList{}
-		l.Init(10)
-		for i := 1; i <= 50; i++ {
-			l.Add(i)
-		}
-		val, _ := l.Get(0)
-		fmt.Println("Valor na posicao 0: ", val)
-
-		val, _ = l.Get(49)
-		fmt.Println("Valor na posicao 49: ", val)
-
-		l.AddOnIndex(-1, 30)
-
-		val, _ = l.Get(30)
-		fmt.Println("Valor na posicao 30: ", val)
-
-		l.Remove(30)
-
-		val, _ = l.Get(0)
-		fmt.Println("Valor na posicao 30: ", val)
-
-		l.Print()
-
-		fmt.Println("")
-		fmt.Println("==== Trabalhando com LinkedList ==== ")
-
-		l2 := &datastructures.LinkedList{}
-		for i := 1; i <= 50; i++ {
-			l2.Add(i)
-		}
-		val, _ = l2.Get(0)
-		fmt.Println("Valor na posicao 0: ", val)
-
-		val, _ = l2.Get(30)
-		fmt.Println("Valor na posicao 49: ", val)
-
-		l2.AddOnIndex(-1, 0)
-
-		val, _ = l2.Get(0)
-		fmt.Println("Valor na posicao 0: ", val)
-
-		l2.Remove(0)
-
-		val, _ = l2.Get(0)
-		fmt.Println("Valor na posicao 0: ", val)
-
-		l2.Print()
-
-		fmt.Println("")
-		fmt.Println("==== Trabalhando com DoublyLinkedList ==== ")
-
-		l3 := &datastructures.DoublyLinkedList{}
-		for i := 1; i <= 50; i++ {
-			l3.Add(i)
-		}
-		val, _ = l3.Get(0)
-		fmt.Println("Valor na posicao 0: ", val)
-
-		val, _ = l3.Get(30)
-		fmt.Println("Valor na posicao 49: ", val)
-
-		l3.AddOnIndex(-1, 0)
-		val, _ = l3.Get(0)
-		fmt.Println("Valor na posicao 0: ", val)
-
-		l3.Remove(0)
-		val, _ = l3.Get(0)
-		fmt.Println("Valor na posicao 0: ", val)
-
-		l3.Print()
-	*/
+func main() {
+	// testaList()
+	// testaStack()
+	// testaQeueue()
+	testaSearch()
 }
