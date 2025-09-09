@@ -11,6 +11,7 @@ type List interface {
 	Add(e int)
 	AddOnIndex(e int, index int) error
 	Remove(index int) error
+	Set(e int, index int) error
 }
 
 // ==== Implementação de ArrayList ====
@@ -40,6 +41,16 @@ func (list *ArrayList) Get(index int) (int, error) {
 	} else {
 		return -1, errors.New(fmt.Sprintf("Index invalido: %dA lista tem %d elementos.", index, list.inserted))
 	}
+}
+
+// Set altera o valor do elemento na posição index
+// Complexidade: theta(1) no melhor e pior caso, pois o tempo não depende da entrada
+func (list *ArrayList) Set(e int, index int) error {
+	if index < 0 || index >= list.inserted {
+		return errors.New(fmt.Sprintf("Índice inválido: %d. A lista tem %d elementos.", index, list.inserted))
+	}
+	list.v[index] = e
+	return nil
 }
 
 // doubleV duplica a capacidade do Array
@@ -138,6 +149,19 @@ func (list *LinkedList) Get(index int) (int, error) { //O(n), Ômega(1)
 	} else {
 		return -1, errors.New(fmt.Sprintf("Index inválido: %d", index))
 	}
+}
+
+func (list *LinkedList) Set(e int, index int) error {
+	if index < 0 || index >= list.inserted {
+		return errors.New(fmt.Sprintf("Índice inválido: %d. A lista tem %d elementos.", index, list.inserted))
+	}
+	aux := list.head
+	for i := 0; i < index; i++ {
+		aux = aux.next
+	}
+	aux.val = e
+
+	return nil
 }
 
 func (list *LinkedList) Add(val int) { //O(n), Ômega(1)
