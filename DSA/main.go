@@ -238,6 +238,63 @@ func testaQeueue() {
 
 }
 
+func testaDeque() {
+	fmt.Println("\n--- Testando Deque com Array Circular ---")
+
+	// Criamos um deque com capacidade para 5 elementos.
+	deque := datastructures.NewArrayDeque(5)
+
+	fmt.Println("Está vazio?", deque.IsEmpty())
+
+	// Testando EnqueueRear (comportamento de Fila)
+	deque.EnqueueRear(10) // Deque: [10]
+	deque.EnqueueRear(20) // Deque: [10, 20]
+
+	// Testando EnqueueFront (comportamento de Pilha)
+	deque.EnqueueFront(5) // Deque: [5, 10, 20]
+	deque.EnqueueFront(1) // Deque: [1, 5, 10, 20]
+
+	front, _ := deque.Front()
+	rear, _ := deque.Rear()
+	fmt.Printf("Estado atual: Frente=%d, Traseira=%d, Tamanho=%d\n", front, rear, deque.Size())
+
+	// Testando Dequeues
+	val, _ := deque.DequeueFront()
+	fmt.Println("DequeueFront retornou:", val)
+
+	val, _ = deque.DequeueRear()
+	fmt.Println("DequeueRear retornou:", val)
+
+	front, _ = deque.Front()
+	rear, _ = deque.Rear()
+	fmt.Printf("Estado final: Frente=%d, Traseira=%d, Tamanho=%d\n", front, rear, deque.Size())
+
+	fmt.Println("\n--- Testando Deque com Lista Duplamente Ligada ---")
+	deque2 := datastructures.NewDoublyLinkedListDeque()
+
+	fmt.Println("Está vazio?", deque.IsEmpty())
+
+	// Mesma sequência de testes
+	deque2.EnqueueRear(10)
+	deque2.EnqueueRear(20)
+	deque2.EnqueueFront(5)
+	deque2.EnqueueFront(1)
+
+	front, _ = deque2.Front()
+	rear, _ = deque2.Rear()
+	fmt.Printf("Estado atual: Frente=%d, Traseira=%d, Tamanho=%d\n", front, rear, deque2.Size())
+
+	val, _ = deque2.DequeueFront()
+	fmt.Println("DequeueFront retornou:", val)
+
+	val, _ = deque2.DequeueRear()
+	fmt.Println("DequeueRear retornou:", val)
+
+	front, _ = deque2.Front()
+	rear, _ = deque2.Rear()
+	fmt.Printf("Estado final: Frente=%d, Traseira=%d, Tamanho=%d\n", front, rear, deque2.Size())
+}
+
 func testaSearch() {
 	fmt.Println("\n--- Testando Algoritmos de Busca ---")
 
@@ -267,5 +324,6 @@ func main() {
 	// testaList()
 	// testaStack()
 	// testaQeueue()
-	testaSearch()
+	// testaSearch()
+	testaDeque()
 }
