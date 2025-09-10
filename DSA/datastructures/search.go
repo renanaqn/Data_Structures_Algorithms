@@ -11,7 +11,7 @@ func LinearSearch(data []int, target int) int {
 	return -1
 }
 
-// BinarySearch busca o alvo em um slice ORDENADO.
+// BinarySearch busca o alvo em um slice ordenado.
 // Retorna o índice se encontrar, ou -1 se não encontrar.
 func BinarySearch(sortedData []int, target int) int {
 	low := 0
