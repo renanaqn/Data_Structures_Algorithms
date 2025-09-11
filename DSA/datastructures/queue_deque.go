@@ -113,7 +113,6 @@ func (d *ArrayDeque) Rear() (int, error) {
 
 // ==== Implementação com Lista Duplamente Ligada (DoublyLinkedListDeque) ====
 
-// DoublyLinkedListDeque implementa um Deque usando a DoublyLinkedList existente.
 type DoublyLinkedListDeque struct {
 	list *DoublyLinkedList
 }
