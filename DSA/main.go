@@ -320,10 +320,37 @@ func testaSearch() {
 	fmt.Printf("!! Tentando buscar %d em dados NÃO ORDENADOS. Resultado (não confiável): %d\n", target, index4)
 }
 
+func testaOrdenacao() {
+	fmt.Println("\n--- Testando Algoritmos de Ordenação ---")
+
+	// --- Selection Sort ---
+	fmt.Println("\n[Selection Sort]")
+	dados1 := []int{8, 2, 4, 3, 7}
+	fmt.Println("Array Original:", dados1)
+	datastructures.SelectionSort(dados1)
+	fmt.Println("Array Ordenado:", dados1)
+
+	// --- Bubble Sort ---
+	fmt.Println("\n[Bubble Sort]")
+	dados2 := []int{2, 8, 6, 10, 4, 5, 3}
+	fmt.Println("Array Original:", dados2)
+	datastructures.BubbleSort(dados2)
+	fmt.Println("Array Ordenado:", dados2)
+
+	// --- Insertion Sort ---
+	fmt.Println("\n[Insertion Sort]")
+	dados3 := []int{8, 2, 4, 3, 7}
+	fmt.Println("Array Original:", dados3)
+	datastructures.InsertionSort(dados3)
+	fmt.Println("Array Ordenado:", dados3)
+
+}
+
 func main() {
 	// testaList()
 	// testaStack()
 	// testaQeueue()
 	// testaSearch()
-	testaDeque()
+	// testaDeque()
+	testaOrdenacao()
 }
