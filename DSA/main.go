@@ -344,6 +344,20 @@ func testaOrdenacao() {
 	datastructures.InsertionSort(dados3)
 	fmt.Println("Array Ordenado:", dados3)
 
+	// --- Merge Sort ---
+	fmt.Println("\n[Merge Sort]")
+	dados4 := []int{9, 4, 3, 6, 3, 2, 5, 7, 1, 8}
+	fmt.Println("Array Original:", dados4)
+	// MergeSort retorna um novo slice, então precisamos atribuir o resultado.
+	dadosOrdenados := datastructures.MergeSort(dados4)
+	fmt.Println("Array Ordenado:", dadosOrdenados)
+
+	// --- Quick Sort ---
+	fmt.Println("\n[Quick Sort]")
+	dados5 := []int{9, 4, 3, 6, 3, 2, 8, 7, 1, 5}
+	fmt.Println("Array Original:", dados5)
+	datastructures.QuickSort(dados5)
+	fmt.Println("Array Ordenado:", dados5)
 }
 
 func main() {

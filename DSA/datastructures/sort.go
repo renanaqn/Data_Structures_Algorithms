@@ -57,3 +57,66 @@ func InsertionSort(data []int) {
 		data[j] = valor
 	}
 }
+
+// MergeSort ordena um slice de inteiros usando o algoritmo Merge Sort.
+func MergeSort(data []int) []int {
+	if len(data) <= 1 {
+		return data
+	}
+	meio := len(data) / 2
+	esquerda := MergeSort(data[:meio])
+	direita := MergeSort(data[meio:])
+	return merge(esquerda, direita)
+}
+
+// merge combina dois slices ordenados.
+func merge(esquerda, direita []int) []int {
+	resultado := make([]int, len(esquerda)+len(direita))
+	i, j := 0, 0
+	for i < len(esquerda) && j < len(direita) {
+		if esquerda[i] <= direita[j] {
+			resultado[i+j] = esquerda[i]
+			i++
+		} else {
+			resultado[i+j] = direita[j]
+			j++
+		}
+	}
+	for i < len(esquerda) {
+		resultado[i+j] = esquerda[i]
+		i++
+	}
+	for j < len(direita) {
+		resultado[i+j] = direita[j]
+		j++
+	}
+	return resultado
+}
+
+// QuickSort é a função pública que inicia a ordenação.
+func QuickSort(data []int) {
+	quickSortRecursive(data, 0, len(data)-1)
+}
+
+// quickSortRecursive é a função recursiva.
+func quickSortRecursive(data []int, low int, high int) {
+	if low < high {
+		pivotIndex := partition(data, low, high)
+		quickSortRecursive(data, low, pivotIndex-1)
+		quickSortRecursive(data, pivotIndex+1, high)
+	}
+}
+
+// partition reorganiza o slice em torno de um pivô.
+func partition(data []int, low int, high int) int {
+	pivot := data[high]
+	pIndex := low
+	for i := low; i < high; i++ {
+		if data[i] <= pivot {
+			data[i], data[pIndex] = data[pIndex], data[i]
+			pIndex++
+		}
+	}
+	data[pIndex], data[high] = data[high], data[pIndex]
+	return pIndex
+}
