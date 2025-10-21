@@ -155,7 +155,7 @@ func testaStack() {
 	fmt.Println("Tamanho:", pilhaLinked.Size())
 }
 
-func testaQeueue() {
+func testaQueue() {
 	fmt.Println("\n--- Testando Fila Circular com Array ---")
 
 	filaCircular := datastructures.NewCircularQueue(5)
@@ -358,13 +358,65 @@ func testaOrdenacao() {
 	fmt.Println("Array Original:", dados5)
 	datastructures.QuickSort(dados5)
 	fmt.Println("Array Ordenado:", dados5)
+
+	// --- Counting Sort ---
+	fmt.Println("\n[Counting Sort]")
+	dados6 := []int{4, 1, 3, 4, 3, 1, 2}
+	fmt.Println("Array Original:", dados6)
+	datastructures.CountingSort(dados6) // Esta versão é in-place
+	fmt.Println("Array Ordenado:", dados6)
+}
+
+func testaArvores() {
+	// --- Árvore de Busca Binária (BST) ---
+	fmt.Println("\n[Árvore de Busca Binária]")
+	// arvore := &datastructures.BST{}
+	arvore := datastructures.NewBST()
+
+	// Inserindo elementos
+	valores := []int{10, 5, 15, 3, 7, 12, 18}
+	fmt.Println("Inserindo os valores:", valores)
+	for _, value := range valores {
+		arvore.Add(value)
+	}
+
+	// Testando a busca
+	fmt.Println("Buscando o valor 7...", arvore.Search(7))
+	fmt.Println("Buscando o valor 18...", arvore.Search(18))
+	fmt.Println("Buscando o valor 99...", arvore.Search(99))
+	fmt.Println("Buscando o valor 1...", arvore.Search(1))
+
+	//Testando Min e Max
+	fmt.Println("Valor Mínimo na árvore:", arvore.Min())
+	fmt.Println("Valor Máximo na árvore:", arvore.Max())
+
+	// Testando altura
+	fmt.Println("Altura da árvore:", arvore.Height())
+	// Testando travessias
+	fmt.Println("Travessia PreOrder:")
+	arvore.PreOrder()
+	fmt.Println("\nTravessia InOrder:")
+	arvore.InOrder()
+	fmt.Println("\nTravessia PosOrder:")
+	arvore.PosOrder()
+	fmt.Println("\nTravessia LevelOrder:")
+	arvore.LevelOrder()
+
+	// Testando remoção
+	fmt.Println("\nRemovendo o valor 5...")
+	arvore.Remove(5)
+	fmt.Println("Travessia InOrder após remoção:")
+	arvore.InOrder()
+	fmt.Println()
+
 }
 
 func main() {
 	// testaList()
 	// testaStack()
-	// testaQeueue()
+	// testaQueue()
 	// testaSearch()
 	// testaDeque()
-	testaOrdenacao()
+	// testaOrdenacao()
+	testaArvores()
 }

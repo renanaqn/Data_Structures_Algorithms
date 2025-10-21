@@ -58,7 +58,7 @@ func InsertionSort(data []int) {
 	}
 }
 
-// MergeSort ordena um slice de inteiros usando o algoritmo Merge Sort.
+// MergeSort ordena um slice de inteiros usando o algoritmo Merge Sort
 func MergeSort(data []int) []int {
 	if len(data) <= 1 {
 		return data
@@ -69,7 +69,7 @@ func MergeSort(data []int) []int {
 	return merge(esquerda, direita)
 }
 
-// merge combina dois slices ordenados.
+// merge combina dois slices ordenados
 func merge(esquerda, direita []int) []int {
 	resultado := make([]int, len(esquerda)+len(direita))
 	i, j := 0, 0
@@ -93,12 +93,14 @@ func merge(esquerda, direita []int) []int {
 	return resultado
 }
 
-// QuickSort é a função pública que inicia a ordenação.
+//todo: montar uma versão sem usar quickSortRecursive
+
+// QuickSort é a função pública que inicia a ordenação
 func QuickSort(data []int) {
 	quickSortRecursive(data, 0, len(data)-1)
 }
 
-// quickSortRecursive é a função recursiva.
+// quickSortRecursive é a função recursiva
 func quickSortRecursive(data []int, low int, high int) {
 	if low < high {
 		pivotIndex := partition(data, low, high)
@@ -119,4 +121,29 @@ func partition(data []int, low int, high int) int {
 	}
 	data[pIndex], data[high] = data[high], data[pIndex]
 	return pIndex
+}
+
+// CountingSort
+func CountingSort(data []int) []int {
+	if len(data) == 0 {
+		return []int{}
+	}
+	k := data[0]
+	for _, value := range data {
+		if value > k {
+			k = value
+		}
+	}
+	count := make([]int, k+1)
+	for _, value := range data {
+		count[value]++
+	}
+	index := 0
+	for value, frequency := range count {
+		for i := 0; i < frequency; i++ {
+			data[index] = value
+			index++
+		}
+	}
+	return data
 }
