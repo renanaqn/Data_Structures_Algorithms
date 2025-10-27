@@ -122,6 +122,21 @@ func Height(node *TreeNode) int {
 	}
 }
 
+/* === Diferenças de Implementação ===
+Professor navegou fazendo uma verificação no nó da esquerda
+e no nó da direita em cada iteração da função:
+func PreOrder(node *TreeNode) {
+	fmrt.Print(node.Value, " ")
+	if node.Left != nil {
+		PreOrder(node.Left)
+	}
+	if node.Right != nil {
+		PreOrder(node.Right)
+	}
+}
+Assim como ele não usa duas funções separadas
+*/
+
 func (t *BST) PreOrder() {
 	PreOrder(t.root)
 }
@@ -207,3 +222,5 @@ func Remove(node *TreeNode, value int) *TreeNode {
 	}
 	return node
 }
+
+// TODO: melhorar os comentários das implementações (principalmente as recursivas)

@@ -374,39 +374,44 @@ func testaArvores() {
 	arvore := datastructures.NewBST()
 
 	// Inserindo elementos
-	valores := []int{10, 5, 15, 3, 7, 12, 18}
+	// valores := []int{10, 5, 15, 3, 7, 12, 18}
+	// valores := []int{40, 20, 25, 10, 50, 45, 60}
+	valores := []int{20, 10, 30, 5, 15, 8, 40}
+	//TODO: testar com a seguinte sequencia: 20, 10, 30, 5, 15, 8, 40
+	// onde o 8 vai ficar? No lugar do 5 ou do 10?
+
 	fmt.Println("Inserindo os valores:", valores)
 	for _, value := range valores {
 		arvore.Add(value)
 	}
 
 	// Testando a busca
-	fmt.Println("Buscando o valor 7...", arvore.Search(7))
-	fmt.Println("Buscando o valor 18...", arvore.Search(18))
-	fmt.Println("Buscando o valor 99...", arvore.Search(99))
-	fmt.Println("Buscando o valor 1...", arvore.Search(1))
+	// fmt.Println("Buscando o valor 7...", arvore.Search(7))
+	// fmt.Println("Buscando o valor 18...", arvore.Search(45))
+	// fmt.Println("Buscando o valor 99...", arvore.Search(99))
+	// fmt.Println("Buscando o valor 1...", arvore.Search(1))
 
-	//Testando Min e Max
-	fmt.Println("Valor Mínimo na árvore:", arvore.Min())
-	fmt.Println("Valor Máximo na árvore:", arvore.Max())
+	// //Testando Min e Max
+	// fmt.Println("Valor Mínimo na árvore:", arvore.Min())
+	// fmt.Println("Valor Máximo na árvore:", arvore.Max())
 
 	// Testando altura
-	fmt.Println("Altura da árvore:", arvore.Height())
+	// fmt.Println("Altura da árvore:", arvore.Height())
 	// Testando travessias
-	fmt.Println("Travessia PreOrder:")
-	arvore.PreOrder()
-	fmt.Println("\nTravessia InOrder:")
-	arvore.InOrder()
-	fmt.Println("\nTravessia PosOrder:")
-	arvore.PosOrder()
+	// fmt.Println("Travessia PreOrder:")
+	// arvore.PreOrder()
+	// fmt.Println("\nTravessia InOrder:")
+	// arvore.InOrder()
+	// fmt.Println("\nTravessia PosOrder:")
+	// arvore.PosOrder()
 	fmt.Println("\nTravessia LevelOrder:")
 	arvore.LevelOrder()
 
 	// Testando remoção
 	fmt.Println("\nRemovendo o valor 5...")
-	arvore.Remove(5)
-	fmt.Println("Travessia InOrder após remoção:")
-	arvore.InOrder()
+	arvore.Remove(40)
+	fmt.Println("\nTravessia LevelOrder:")
+	arvore.LevelOrder()
 	fmt.Println()
 
 }
