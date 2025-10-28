@@ -1,7 +1,8 @@
 package datastructures
 
+import "math/rand"
+
 // SelectionSort ordena um slice de inteiros usando o algoritmo Selection Sort (in-place).
-// A lógica é a mesma descrita na sua nota de aula.
 func SelectionSort(data []int) {
 	tamanho := len(data)
 	// O loop externo vai até o penúltimo elemento.
@@ -100,7 +101,7 @@ func QuickSort(data []int) {
 	quickSortRecursive(data, 0, len(data)-1)
 }
 
-// quickSortRecursive é a função recursiva
+// quickSortRecursive é a função recursiva.
 func quickSortRecursive(data []int, low int, high int) {
 	if low < high {
 		pivotIndex := partition(data, low, high)
@@ -109,8 +110,15 @@ func quickSortRecursive(data []int, low int, high int) {
 	}
 }
 
-// partition reorganiza o slice em torno de um pivô.
+// partition reorganiza o slice em torno de um pivô aleatório.
 func partition(data []int, low int, high int) int {
+	// Escolhe um índice aleatório para o pivô entre low e high (inclusivo).
+	pivotRandomIndex := low + rand.Intn(high-low+1)
+
+	// Coloca esse pivô aleatório no final (posição 'high').
+	data[pivotRandomIndex], data[high] = data[high], data[pivotRandomIndex]
+
+	// O resto usa a lógica de partição de Lomuto
 	pivot := data[high]
 	pIndex := low
 	for i := low; i < high; i++ {

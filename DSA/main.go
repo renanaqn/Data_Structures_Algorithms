@@ -422,6 +422,6 @@ func main() {
 	// testaQueue()
 	// testaSearch()
 	// testaDeque()
-	// testaOrdenacao()
-	testaArvores()
+	testaOrdenacao()
+	// testaArvores()
 }
