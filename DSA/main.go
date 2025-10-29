@@ -399,19 +399,19 @@ func testaArvores() {
 	// Testando altura
 	fmt.Println("Altura da árvore:", arvore.Height())
 	// Testando travessias
-	fmt.Println("Travessia PreOrder:")
-	arvore.PreOrder()
-	fmt.Println("\nTravessia InOrder:")
-	arvore.InOrder()
-	fmt.Println("\nTravessia PosOrder:")
-	arvore.PosOrder()
+	// fmt.Println("Travessia PreOrder:")
+	// arvore.PreOrder()
+	// fmt.Println("\nTravessia InOrder:")
+	// arvore.InOrder()
+	// fmt.Println("\nTravessia PosOrder:")
+	// arvore.PosOrder()
 	fmt.Println("\nTravessia LevelOrder:")
 	arvore.LevelOrder()
 	fmt.Println("\nTamanho da árvore:", arvore.Size())
 
 	// Testando remoção
 	fmt.Println("\nRemovendo o valor 5...")
-	arvore.Remove(5)
+	arvore.Remove(45)
 	fmt.Println("\nTravessia LevelOrder:")
 	arvore.LevelOrder()
 	fmt.Println("\nTamanho da árvore:", arvore.Size())
@@ -480,6 +480,25 @@ func testaArvores2() {
 
 }
 
+func testaConversaoBST() {
+	fmt.Println("\n--- Testando Conversão de Array Ordenado para BST Balanceada ---")
+
+	sortedArray := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+	fmt.Println("Array ordenado de entrada:", sortedArray)
+
+	rootNode := datastructures.ConvertToBalancedBst(sortedArray, 0, len(sortedArray)-1)
+
+	// O usuário recebe um *TreeNode*, não a struct *BST*
+	//    Então ele precisa criar a struct manualmente:
+	balancedTree := datastructures.NewBST()
+	balancedTree.SetRoot(rootNode)         // (Precisaríamos criar um método SetRoot)
+	balancedTree.SetSize(len(sortedArray)) // (Precisaríamos criar um método SetSize)
+
+	balancedTree.LevelOrder()                              // Esperado: [6 3 9 1 4 7 10 2 5 8 11] (ou similar)
+	fmt.Println("Tamanho da árvore:", balancedTree.Size()) // Esperado: 11
+	fmt.Println("Altura:", balancedTree.Height())          // Esperado: 3 (O(log n))
+}
+
 func main() {
 	// testaList()
 	// testaStack()
@@ -487,6 +506,7 @@ func main() {
 	// testaSearch()
 	// testaDeque()
 	// testaOrdenacao()
-	testaArvores()
-	// testaArvores2()
+	// testaArvores()
+	testaArvores2()
+	// testaConversaoBST()
 }

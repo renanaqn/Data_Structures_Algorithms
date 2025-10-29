@@ -18,6 +18,9 @@ type BinarySearchTree interface {
 	Remove(int)
 	IsBst() bool
 	Size() int
+	SetRoot(node *TreeNode)
+	SetSize(size int)
+	ConvertToBalancedBst([]int) *BST
 }
 
 // TreeNode representa um nó na árvore.
@@ -36,6 +39,17 @@ type BST struct {
 func NewBST() *BST {
 	return &BST{}
 }
+
+// Adicionados para permitir que o main.go construa uma BST
+// a partir do nó raiz retornado pela função única.
+func (t *BST) SetRoot(node *TreeNode) {
+	t.root = node
+}
+func (t *BST) SetSize(size int) {
+	t.size = size
+}
+
+// === Adição de Elemento ===
 
 // Add inicia a inserção a partir da raiz
 func (t *BST) Add(value int) {
@@ -66,6 +80,8 @@ func Add(node *TreeNode, value int) *TreeNode {
 	return node
 }
 
+// === Procura de Elemento ===
+
 func (t *BST) Search(value int) bool {
 	return Search(t.root, value)
 }
@@ -87,6 +103,8 @@ func Search(node *TreeNode, value int) bool {
 func (t *BST) Min() int {
 	return Min(t.root)
 }
+
+// === Valores Mínimo/Máximo de Elemento ===
 
 func Min(node *TreeNode) int {
 	if node == nil {
@@ -110,6 +128,9 @@ func Max(node *TreeNode) int {
 	}
 	return node.Value
 }
+
+// === Altura Árvore ===
+
 func (t *BST) Height() int {
 	return Height(t.root)
 }
@@ -141,6 +162,8 @@ func PreOrder(node *TreeNode) {
 }
 Assim como ele não usa duas funções separadas
 */
+
+// === Travessias ===
 
 func (t *BST) PreOrder() {
 	PreOrder(t.root)
@@ -201,51 +224,61 @@ func LevelOrder(node *TreeNode) {
 		}
 	}
 }
+
+// === Remoção de Elemento ===
+
 func (t *BST) Remove(value int) {
-	t.root = Remove(t.root, value)
+	var removed bool
+	t.root, removed = Remove(t.root, value)
+	if removed {
+		t.size-- // Decrementa o size APENAS se 'removed' for true
+	}
 }
 
-func Remove(node *TreeNode, value int) *TreeNode {
+func Remove(node *TreeNode, value int) (*TreeNode, bool) {
+	removed := false // Flag para rastrear se a remoção ocorreu nesta sub-árvore
 	if node == nil {
-		return nil
+		return nil, false // Valor não encontrado, nenhuma remoção
 	}
 	if value < node.Value {
-		node.Left = Remove(node.Left, value)
+		node.Left, removed = Remove(node.Left, value)
 	} else if value > node.Value {
-		node.Right = Remove(node.Right, value)
+		node.Right, removed = Remove(node.Right, value)
 	} else {
+		removed = true // Remoção vai acontecer (ou já aconteceu nos casos abaixo)
 		// Nó com apenas um filho ou nenhum filho
 		if node.Left == nil {
-			return node.Right
+			return node.Right, true
 		} else if node.Right == nil {
-			return node.Left
+			return node.Left, true
 		}
 		// Nó com dois filhos: obtém o sucessor inorder (menor na subárvore direita)
 		minRight := Min(node.Right)
 		node.Value = minRight
-		node.Right = Remove(node.Right, minRight)
+		node.Right, _ = Remove(node.Right, minRight)
 	}
-	return node
+	return node, removed
 }
+
+// === Verificação de BST ===
 
 // IsBst é o método público que inicia a verificação a partir do nó receptor.
 // Ele chama a função auxiliar com os limites máximo e mínimo possíveis.
 func (bstNode *TreeNode) IsBst() bool {
-	// Usamos math.MinInt e math.MaxInt para representar -infinito e +infinito
+	// Foi usado o math.MinInt e o math.MaxInt para representar -infinito e +infinito
 	// como limites iniciais para a raiz.
 	return isBstRecursive(bstNode, math.MinInt, math.MaxInt)
 }
 
 // isBstRecursive é a função recursiva que faz a verificação.
-// Ela recebe o nó atual e os limites (min, max) que seu valor deve respeitar.
 func isBstRecursive(node *TreeNode, min int, max int) bool {
-	// Caso base 1: Uma árvore vazia (nó nulo) é considerada uma BST válida.
+	// Caso 1: Uma árvore vazia (nó nulo) é considerada uma BST válida.
 	if node == nil {
 		return true
 	}
 
-	// Caso base 2: Verifica se o valor do nó atual está fora dos limites permitidos.
-	// Usaremos a convenção: left <= node < right (ou seja, valores iguais podem ir para a esquerda)
+	// Caso 2: Verifica se o valor do nó atual está fora dos limites permitidos.
+	// Está sendo usado a convenção: left <= node < right (ou seja, valores iguais podem ir para a esquerda)
 	// Se o valor for menor ou igual ao mínimo OU maior que o máximo, não é BST.
 	if node.Value <= min || node.Value > max {
 		return false
@@ -262,9 +295,39 @@ func isBstRecursive(node *TreeNode, min int, max int) bool {
 	return isBstRecursive(node.Left, min, node.Value) && isBstRecursive(node.Right, node.Value, max)
 }
 
+// === Size ===
+
 // Size retorna o número de nós na árvore BST.
 func (t *BST) Size() int {
 	return t.size // Simplesmente retorna o valor do campo size
+}
+
+// === Conversão de Array Ordenado para BST ===
+
+// ConvertToBalancedBst constrói uma BST balanceada a partir de um slice
+// Lembrar de passar os índices corretos (ex: 0 e len(v)-1).
+func ConvertToBalancedBst(v []int, ini int, fim int) *TreeNode {
+	// Caso Base: Se o sub-array é inválido/vazio, retorna nil.
+	if ini > fim {
+		return nil
+	}
+
+	// Encontra o elemento do meio
+	mid := ini + (fim-ini)/2
+
+	// O elemento do meio se torna a raiz desta sub-árvore
+	rootNode := &TreeNode{Value: v[mid]}
+
+	// Constrói recursivamente a sub-árvore esquerda
+	// (com os elementos de 'ini' até 'mid-1')
+	rootNode.Left = ConvertToBalancedBst(v, ini, mid-1)
+
+	// Constrói recursivamente a sub-árvore direita
+	// (com os elementos de 'mid+1' até 'fim')
+	rootNode.Right = ConvertToBalancedBst(v, mid+1, fim)
+
+	// Retorna a raiz da sub-árvore criada
+	return rootNode
 }
 
 // TODO: melhorar os comentários das implementações (principalmente as recursivas)
