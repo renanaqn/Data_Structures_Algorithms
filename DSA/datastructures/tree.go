@@ -1,6 +1,9 @@
 package datastructures
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type BinarySearchTree interface {
 	Add(int)
@@ -13,6 +16,8 @@ type BinarySearchTree interface {
 	PosOrder()
 	LevelOrder()
 	Remove(int)
+	IsBst() bool
+	Size() int
 }
 
 // TreeNode representa um nó na árvore.
@@ -221,6 +226,45 @@ func Remove(node *TreeNode, value int) *TreeNode {
 		node.Right = Remove(node.Right, minRight)
 	}
 	return node
+}
+
+// IsBst é o método público que inicia a verificação a partir do nó receptor.
+// Ele chama a função auxiliar com os limites máximo e mínimo possíveis.
+func (bstNode *TreeNode) IsBst() bool {
+	// Usamos math.MinInt e math.MaxInt para representar -infinito e +infinito
+	// como limites iniciais para a raiz.
+	return isBstRecursive(bstNode, math.MinInt, math.MaxInt)
+}
+
+// isBstRecursive é a função recursiva que faz a verificação.
+// Ela recebe o nó atual e os limites (min, max) que seu valor deve respeitar.
+func isBstRecursive(node *TreeNode, min int, max int) bool {
+	// Caso base 1: Uma árvore vazia (nó nulo) é considerada uma BST válida.
+	if node == nil {
+		return true
+	}
+
+	// Caso base 2: Verifica se o valor do nó atual está fora dos limites permitidos.
+	// Usaremos a convenção: left <= node < right (ou seja, valores iguais podem ir para a esquerda)
+	// Se o valor for menor ou igual ao mínimo OU maior que o máximo, não é BST.
+	if node.Value <= min || node.Value > max {
+		return false
+	}
+
+	// Passo recursivo:
+	// 1. Verifica a sub-árvore esquerda:
+	//    Todos os nós à esquerda devem ser menores ou iguais ao nó atual (novo 'max')
+	//    e maiores que o limite 'min' herdado.
+	// 2. Verifica a sub-árvore direita:
+	//    Todos os nós à direita devem ser maiores que o nó atual (novo 'min')
+	//    e menores ou iguais ao limite 'max' herdado.
+	// A árvore só é BST se o nó atual for válido E ambas as sub-árvores forem BSTs válidas.
+	return isBstRecursive(node.Left, min, node.Value) && isBstRecursive(node.Right, node.Value, max)
+}
+
+// Size retorna o número de nós na árvore BST.
+func (t *BST) Size() int {
+	return t.size // Simplesmente retorna o valor do campo size
 }
 
 // TODO: melhorar os comentários das implementações (principalmente as recursivas)

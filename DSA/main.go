@@ -376,7 +376,8 @@ func testaArvores() {
 	// Inserindo elementos
 	// valores := []int{10, 5, 15, 3, 7, 12, 18}
 	// valores := []int{40, 20, 25, 10, 50, 45, 60}
-	valores := []int{20, 10, 30, 5, 15, 8, 40}
+	// valores := []int{20, 10, 30, 5, 15, 8, 40}
+	valores := []int{50, 30, 45, 32, 10, 90, 55, 49, -5, 88, 110, 40}
 	//TODO: testar com a seguinte sequencia: 20, 10, 30, 5, 15, 8, 40
 	// onde o 8 vai ficar? No lugar do 5 ou do 10?
 
@@ -396,23 +397,86 @@ func testaArvores() {
 	// fmt.Println("Valor Máximo na árvore:", arvore.Max())
 
 	// Testando altura
-	// fmt.Println("Altura da árvore:", arvore.Height())
+	fmt.Println("Altura da árvore:", arvore.Height())
 	// Testando travessias
-	// fmt.Println("Travessia PreOrder:")
-	// arvore.PreOrder()
-	// fmt.Println("\nTravessia InOrder:")
-	// arvore.InOrder()
-	// fmt.Println("\nTravessia PosOrder:")
-	// arvore.PosOrder()
+	fmt.Println("Travessia PreOrder:")
+	arvore.PreOrder()
+	fmt.Println("\nTravessia InOrder:")
+	arvore.InOrder()
+	fmt.Println("\nTravessia PosOrder:")
+	arvore.PosOrder()
 	fmt.Println("\nTravessia LevelOrder:")
 	arvore.LevelOrder()
+	fmt.Println("\nTamanho da árvore:", arvore.Size())
 
 	// Testando remoção
 	fmt.Println("\nRemovendo o valor 5...")
-	arvore.Remove(40)
+	arvore.Remove(5)
 	fmt.Println("\nTravessia LevelOrder:")
 	arvore.LevelOrder()
+	fmt.Println("\nTamanho da árvore:", arvore.Size())
 	fmt.Println()
+
+}
+
+func testaArvores2() {
+	fmt.Println("\n--- Testando a Função isBst ---")
+
+	// --- Árvore 1: É uma BST válida ---
+	//       10
+	//      /  \
+	//     5    15
+	//    / \   / \
+	//   3   7 12 18
+	fmt.Println("\nÁrvore 1 (Válida):")
+	raizValida := &datastructures.TreeNode{Value: 10}
+	raizValida.Left = &datastructures.TreeNode{Value: 5}
+	raizValida.Right = &datastructures.TreeNode{Value: 15}
+	raizValida.Left.Left = &datastructures.TreeNode{Value: 3}
+	raizValida.Left.Right = &datastructures.TreeNode{Value: 7}
+	raizValida.Right.Left = &datastructures.TreeNode{Value: 12}
+	raizValida.Right.Right = &datastructures.TreeNode{Value: 18}
+
+	fmt.Println("Verificando se é BST:", raizValida.IsBst()) // Esperado: true
+
+	// --- Árvore 2: NÃO é uma BST válida ---
+	//       10
+	//      /  \
+	//     5    15
+	//    / \
+	//   3   12  <-- Erro: 12 > 10, não deveria estar na sub-árvore esquerda
+	fmt.Println("\nÁrvore 2 (Inválida):")
+	raizInvalida := &datastructures.TreeNode{Value: 10}
+	raizInvalida.Left = &datastructures.TreeNode{Value: 5}
+	raizInvalida.Right = &datastructures.TreeNode{Value: 15}
+	raizInvalida.Left.Left = &datastructures.TreeNode{Value: 3}
+	raizInvalida.Left.Right = &datastructures.TreeNode{Value: 12} // Violação da BST
+
+	fmt.Println("Verificando se é BST:", raizInvalida.IsBst()) // Esperado: false
+
+	// --- Árvore 3: Outra inválida ---
+	//       20
+	//      /  \
+	//     10   30
+	//         /
+	//        5   <-- Erro: 5 < 20, não deveria estar na sub-árvore direita
+	fmt.Println("\nÁrvore 3 (Inválida):")
+	raizInvalida2 := &datastructures.TreeNode{Value: 20}
+	raizInvalida2.Left = &datastructures.TreeNode{Value: 10}
+	raizInvalida2.Right = &datastructures.TreeNode{Value: 30}
+	raizInvalida2.Right.Left = &datastructures.TreeNode{Value: 5} // Violação da BST
+
+	fmt.Println("Verificando se é BST:", raizInvalida2.IsBst()) // Esperado: false
+
+	// --- Árvore 4: Vazia (Considerada válida) ---
+	fmt.Println("\nÁrvore 4 (Vazia):")
+	var raizVazia *datastructures.TreeNode = nil
+	fmt.Println("Verificando se é BST:", raizVazia.IsBst()) // Esperado: true
+
+	// --- Árvore 5: Apenas Raiz (Considerada válida) ---
+	fmt.Println("\nÁrvore 5 (Apenas Raiz):")
+	raizSo := &datastructures.TreeNode{Value: 50}
+	fmt.Println("Verificando se é BST:", raizSo.IsBst()) // Esperado: true
 
 }
 
@@ -422,6 +486,7 @@ func main() {
 	// testaQueue()
 	// testaSearch()
 	// testaDeque()
-	testaOrdenacao()
-	// testaArvores()
+	// testaOrdenacao()
+	testaArvores()
+	// testaArvores2()
 }
