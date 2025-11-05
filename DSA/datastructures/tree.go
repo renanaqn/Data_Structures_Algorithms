@@ -21,6 +21,7 @@ type BinarySearchTree interface {
 	SetRoot(node *TreeNode)
 	SetSize(size int)
 	ConvertToBalancedBst([]int) *BST
+	CountEven() int
 }
 
 // TreeNode representa um nó na árvore.
@@ -231,7 +232,7 @@ func (t *BST) Remove(value int) {
 	var removed bool
 	t.root, removed = Remove(t.root, value)
 	if removed {
-		t.size-- // Decrementa o size APENAS se 'removed' for true
+		t.size--
 	}
 }
 
@@ -328,6 +329,37 @@ func ConvertToBalancedBst(v []int, ini int, fim int) *TreeNode {
 
 	// Retorna a raiz da sub-árvore criada
 	return rootNode
+}
+
+// CountEven é o método público na BST (wrapper).
+func (t *BST) CountEven() int {
+	// Chama a função recursiva 'Par' no nó raiz
+	return Par(t.root)
+}
+
+// Par (conforme protótipo da Questão 8) é a função recursiva
+// que conta quantos nós na sub-árvore (iniciando em 'node')
+// possuem um valor par.
+func Par(node *TreeNode) int {
+	// Caso Base: Se o nó é nulo, a contagem de pares é 0.
+	if node == nil {
+		return 0
+	}
+
+	// 1. Conta recursivamente na sub-árvore esquerda
+	countLeft := Par(node.Left)
+
+	// 2. Conta recursivamente na sub-árvore direita
+	countRight := Par(node.Right)
+
+	// 3. Verifica o nó atual
+	countCurrent := 0
+	if node.Value%2 == 0 {
+		countCurrent = 1
+	}
+
+	// 4. Retorna a soma total
+	return countCurrent + countLeft + countRight
 }
 
 // TODO: melhorar os comentários das implementações (principalmente as recursivas)

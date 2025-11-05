@@ -499,6 +499,40 @@ func testaConversaoBST() {
 	fmt.Println("Altura:", balancedTree.Height())          // Esperado: 3 (O(log n))
 }
 
+// testaPares (Questão 8)
+func testaPares() {
+	fmt.Println("\n--- Testando Questão 8: Contagem de Pares ---")
+
+	vetor := []int{2, 4, 1, 10, 12, 5}
+	fmt.Println("Vetor de entrada:", vetor)
+
+	// 1. Construir a BST
+	arvore := datastructures.NewBST()
+	for _, v := range vetor {
+		arvore.Add(v)
+	}
+
+	// 2. Visualizar a árvore (LevelOrder é bom para isso)
+	fmt.Print("Árvore resultante (LevelOrder): ")
+	arvore.LevelOrder()
+
+	// 3. Chamar a função CountEven()
+	// A árvore é:
+	//       2
+	//      / \
+	//     1   4
+	//          \
+	//          10
+	//          / \
+	//         5   12
+	//
+	// Valores pares: 2, 4, 10, 12.
+	// Resultado esperado: 4
+
+	contagem := arvore.CountEven()
+	fmt.Println("Quantidade de nós com valores pares:", contagem) // Esperado: 4
+}
+
 func main() {
 	// testaList()
 	// testaStack()
@@ -507,6 +541,7 @@ func main() {
 	// testaDeque()
 	// testaOrdenacao()
 	// testaArvores()
-	testaArvores2()
+	// testaArvores2()
 	// testaConversaoBST()
+	testaPares()
 }
