@@ -533,6 +533,110 @@ func testaPares() {
 	fmt.Println("Quantidade de nós com valores pares:", contagem) // Esperado: 4
 }
 
+func testaAVL() {
+	fmt.Println("\n--- Testando Árvore AVL ---")
+	avl := datastructures.NewAVL()
+
+	// --- Teste 1: Inserção Ordenada (Pior caso para BST) ---
+	fmt.Println("\n[Teste 1] Inserindo 1, 2, 3, 4, 5, 6, 7 sequencialmente...")
+	// Isso forçaria várias rotações para manter a altura logarítmica
+	inputs := []int{1, 2, 3, 4, 5, 6, 7}
+	for _, val := range inputs {
+		fmt.Printf("Inserindo %d...\n", val)
+		avl.Add(val)
+	}
+
+	fmt.Println("\nEstado da Árvore após inserções (Em-Ordem):")
+	// Esperado: Árvore balanceada.
+	// A raiz deve ser o 4.
+	// Estrutura esperada (visual):
+	//       4
+	//     /   \
+	//    2     6
+	//   / \   / \
+	//  1   3 5   7
+	// Altura esperada: 2 (considerando folha h=0) ou 3 (se contar nós)
+	avl.InOrder()
+	fmt.Println("\nEstado da Árvore após inserções (Nível):")
+	avl.LevelOrder()
+
+	// --- Teste 2: Remoção e Rebalanceamento ---
+	fmt.Println("\n\n[Teste 2] Removendo elementos para forçar rotações...")
+
+	// Remover o 4 (Raiz) deve forçar uma reestruturação
+	fmt.Println("Removendo 4 (Raiz)...")
+	avl.Remove(4)
+	avl.InOrder()
+
+	// Remover o 6 deve desbalancear o lado direito e forçar rotação
+	fmt.Println("\nRemovendo 6...")
+	avl.Remove(6)
+	avl.InOrder()
+
+	// Remover o 5
+	fmt.Println("\nRemovendo 5...")
+	avl.Remove(5)
+	avl.InOrder()
+
+	fmt.Println("\nTestes de AVL concluídos.")
+}
+
+// Função dedicada para testar a Tabela Hash
+func testaHash() {
+	fmt.Println("\n--- Testando Tabela Hash ---")
+
+	// 1. Criação
+	// Criamos uma tabela propositalmente pequena (capacidade 5)
+	// para forçar colisões e visualizar o tratamento (listas ligadas).
+	ht := datastructures.NewHashTable(5)
+
+	// 2. Inserção (Put)
+	fmt.Println("--- Inserindo dados ---")
+	ht.Put("Alice", 25)
+	ht.Put("Bob", 30)
+	ht.Put("Carol", 35)
+
+	fmt.Println("Fator de Carga (Load Factor):", ht.LoadFactor())
+	fmt.Println("Capacidade da Tabela:", ht.CapacityHT())
+	fmt.Println("Tamanho da Tabela (Size):", ht.SizeHT())
+
+	ht.Put("Dave", 40) // Colisão provável (dependendo do hash)
+	ht.Put("Eve", 45)  // Colisão provável
+
+	// Exibe o estado atual para ver onde cada chave caiu
+	ht.Print()
+
+	// 3. Busca (Get)
+	fmt.Println("\n--- Buscando ---")
+	chaveBusca := "Bob"
+	val, ok := ht.Get(chaveBusca)
+	if ok {
+		fmt.Printf("Chave '%s' encontrada! Valor: %d\n", chaveBusca, val)
+	} else {
+		fmt.Printf("Chave '%s' não encontrada.\n", chaveBusca)
+	}
+
+	// 4. Atualização (Put em chave existente)
+	fmt.Println("\n--- Atualizando ---")
+	fmt.Println("Atualizando valor de 'Alice' para 99...")
+	ht.Put("Alice", 99)
+
+	val, _ = ht.Get("Alice")
+	fmt.Printf("Novo valor de Alice: %d\n", val)
+
+	fmt.Println("Fator de Carga (Load Factor):", ht.LoadFactor())
+	fmt.Println("Capacidade da Tabela:", ht.CapacityHT())
+	fmt.Println("Tamanho da Tabela (Size):", ht.SizeHT())
+	// 5. Remoção (Remove)
+	fmt.Println("\n--- Removendo ---")
+	fmt.Println("Removendo a chave 'Carol'...")
+	removido := ht.Remove("Carol")
+	fmt.Printf("Remoção bem-sucedida? %v\n", removido)
+
+	// Exibe o estado final
+	ht.Print()
+}
+
 func main() {
 	// testaList()
 	// testaStack()
@@ -543,5 +647,7 @@ func main() {
 	// testaArvores()
 	// testaArvores2()
 	// testaConversaoBST()
-	testaPares()
+	// testaPares()
+	// testaAVL()
+	testaHash()
 }
